@@ -1,47 +1,50 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ghahn <ghahn@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/23 14:18:08 by ghahn             #+#    #+#             */
+/*   Updated: 2022/08/23 14:18:08 by ghahn            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-int 	count_par(char *s, char **type)
+int 	form_print(va_list lst, char x)
 {
-	int	cnt;
-	int	i;
-
-	i = -1;
-	cnt = 0;
-	while (s[++i])
-	{
-		if (s[i] == '%')
-		{
-			i++;
-			cnt++;
-		}
-	}
-	(*type) = (char *)malloc(sizeof(char) * (cnt + 1));
-	if (type == NULL)
-		return -1;
-	i = 0;
-	while (*s)
-	{
-		if (*s == '%')
-			(*type)[i++] = *++s;
-		s++;
-	}
-	type[i] = '\0';
-	return (cnt);
+	if (x == 'c' || x == 's')
+		return (print_string(lst, x));
+	if (x == 'p')
+		return (print_address(lst));
+	if (x == 'd' || x == 'i' || x == 'u')
+		return (print_integer(lst, x));
+	if (x == 'x' || x == 'X')
+		return (print_hex(lst, x));
+	if (x == '%')
+		return (write(1, "%", 1));
 }
 
 int	ft_printf(const char *s, ...)
 {
 	va_list	x;
-	sizeof	i;
+	int		result;
+	char	*tmp;
 
-	i = -1;
+	if (s == NULL)
+		return (-1);
+	result = 0;
 	va_start(x, s);
-	while (s[++i])
+	va_arg(tmp, char *);
+	while (*s)
 	{
-		if (s[i] != '%')
-			write(1, s + i++, 1);
+		if (*s != '%')
+			result += write(1, *s, 1);
 		else
-			print()
+			result += form_print(x, *++s);
+		s++;
 	}
-	va_end(x)
+	va_end(x);
+	return (result);
 }
