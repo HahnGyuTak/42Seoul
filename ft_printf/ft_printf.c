@@ -12,18 +12,19 @@
 
 #include "ft_printf.h"
 
-int 	form_print(va_list lst, char x)
+static int	form_print(va_list lst, char x)
 {
 	if (x == 'c' || x == 's')
 		return (print_string(lst, x));
-	if (x == 'p')
+	else if (x == 'p')
 		return (print_address(lst));
-	if (x == 'd' || x == 'i' || x == 'u')
+	else if (x == 'd' || x == 'i' || x == 'u')
 		return (print_integer(lst, x));
-	if (x == 'x' || x == 'X')
+	else if (x == 'x' || x == 'X')
 		return (print_hex(lst, x));
-	if (x == '%')
+	else if (x == '%')
 		return (write(1, "%", 1));
+	return (-1);
 }
 
 int	ft_printf(const char *s, ...)
@@ -31,6 +32,7 @@ int	ft_printf(const char *s, ...)
 	va_list	x;
 	int		result;
 	char	*tmp;
+	int 	flage;
 
 	if (s == NULL)
 		return (-1);
@@ -40,9 +42,14 @@ int	ft_printf(const char *s, ...)
 	while (*s)
 	{
 		if (*s != '%')
-			result += write(1, *s, 1);
+			result += write(1, s, 1);
 		else
-			result += form_print(x, *++s);
+		{
+			flage = form_print(x, *++s);
+			if (flage == NULL)
+				return (-1);
+			result += flage;
+		}
 		s++;
 	}
 	va_end(x);
