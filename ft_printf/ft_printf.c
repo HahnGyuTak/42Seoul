@@ -14,6 +14,8 @@
 
 static int	form_print(va_list lst, char x)
 {
+	char	s[2];
+
 	if (x == 'c' || x == 's')
 		return (print_string(lst, x));
 	else if (x == 'p')
@@ -24,6 +26,12 @@ static int	form_print(va_list lst, char x)
 		return (print_hex(lst, x));
 	else if (x == '%')
 		return (write(1, "%", 1));
+	else
+	{
+		s[0] = x;
+		s[1] = '\0';
+		return (write(1, s, 1));
+	}
 	return (-1);
 }
 
@@ -32,7 +40,7 @@ int	ft_printf(const char *s, ...)
 	va_list	x;
 	int		result;
 	char	*tmp;
-	int 	flage;
+	int		flage;
 
 	if (s == NULL)
 		return (-1);
@@ -46,7 +54,7 @@ int	ft_printf(const char *s, ...)
 		else
 		{
 			flage = form_print(x, *++s);
-			if (flage == NULL)
+			if (flage == -1)
 				return (-1);
 			result += flage;
 		}

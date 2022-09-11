@@ -6,7 +6,7 @@
 /*   By: ghahn <ghahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 15:21:35 by ghahn             #+#    #+#             */
-/*   Updated: 2022/08/24 15:33:43 by ghahn            ###   ########.fr       */
+/*   Updated: 2022/09/11 22:19:08 by ghahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,30 @@
 
 static int	print_upper(long long n)
 {
+	int	tmp;
+
 	if (n <= 0)
 		return (0);
-	return (print_upper(n / 16) + write(1, &"0123456789ABCDEF"[n % 16], 1));
+	tmp = print_upper(n / 16);
+	if (tmp == -1)
+		return (-1);
+	if (write(1, &"0123456789ABCDEF"[n % 16], 1) == -1)
+		return (-1);
+	return (++tmp);
 }
 
 static int	print_lower(long long n)
 {
+	int	tmp;
+
 	if (n <= 0)
 		return (0);
-	return (print_lower(n / 16) + write(1, &"0123456789abcdef"[n % 16], 1));
+	tmp = print_lower(n / 16);
+	if (tmp == -1)
+		return (-1);
+	if (write(1, &"0123456789abcdef"[n % 16], 1) == -1)
+		return (-1);
+	return (++tmp);
 }
 
 int	print_hex(va_list lst, char x)
@@ -31,11 +45,16 @@ int	print_hex(va_list lst, char x)
 	int			n;
 	long long	k;
 
-	k = va_arg(lst, long long);
+	k = va_arg(lst, unsigned int);
 	n = 0;
-	if (x == 'X')
-		n += print_upper(k);
+	if (k == 0)
+		n += write(1, "0", 1);
 	else
-		n += print_lower(k);
+	{
+		if (x == 'X')
+			n += print_upper(k);
+		else
+			n += print_lower(k);
+	}
 	return (n);
 }

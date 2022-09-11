@@ -1,11 +1,12 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-NAME = ft_printf.a
+NAME = libftprintf.a
+LIBFTDIR = ./libft
+LIBFTFILE = libft.a
+
 RM = rm -rf
 
 SRCS = \
-	srcs/ft_itoa.c	\
-	srcs/ft_strlen.c	\
 	ft_print_address.c	\
 	ft_print_hex.c	\
 	ft_print_number.c	\
@@ -20,12 +21,20 @@ OBJ_FILES = $(OBJS)
 
 all : $(NAME)
 %.o : %.c
-	$(CC) $(CFLAG) -c $< -o $@
+	$(CC) $(CFLAG) -c $< -o $@ -I.
+
 $(NAME) : $(OBJ_FILES)
+	make -C $(LIBFTDIR)
+	cp $(LIBFTDIR)/$(LIBFTFILE) $(NAME)
 	ar crs $(NAME) $(OBJ_FILES)
-clean : 
+
+clean :
+	make -C $(LIBFTDIR) clean
 	$(RM) $(OBJS)
+
 fclean : clean
+	make -C $(LIBFTDIR) fclean
 	$(RM) $(NAME)
+
 re : fclean $(NAME)
 .PHONY : all clean fclean re

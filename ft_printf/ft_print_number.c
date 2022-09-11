@@ -6,7 +6,7 @@
 /*   By: ghahn <ghahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 15:21:49 by ghahn             #+#    #+#             */
-/*   Updated: 2022/08/24 15:38:21 by ghahn            ###   ########.fr       */
+/*   Updated: 2022/09/11 21:24:03 by ghahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,16 @@ int	print_integer(va_list lst, char x)
 	long long	n;
 	char		*s;
 
-	if (x == 'i')
-		n = va_arg(lst, unsigned int);
+	if (x == 'u')
+		n = (long long)va_arg(lst, unsigned int);
 	else
-		n = va_arg(lst, int);
+		n = (long long)va_arg(lst, int);
 	s = ft_itoa(n);
+	if (s == NULL)
+		return (-1);
 	n = write(1, s, ft_strlen(s));
+	if (n == -1)
+		return (-1);
 	free(s);
 	return ((int)n);
 }

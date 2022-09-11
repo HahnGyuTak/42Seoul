@@ -16,10 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdarg.h>
-
-//----------srcs-----------
-size_t	ft_strlen(const char *str);
-char	*ft_itoa(long long n);
+# include "./libft/libft.h"
 
 //----------main-----------
 int		print_string(va_list lst, char x);
