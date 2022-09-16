@@ -46,7 +46,6 @@ int	ft_printf(const char *s, ...)
 		return (-1);
 	result = 0;
 	va_start(x, s);
-	va_arg(tmp, char *);
 	while (*s)
 	{
 		if (*s != '%')
