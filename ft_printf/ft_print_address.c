@@ -6,7 +6,7 @@
 /*   By: ghahn <ghahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 15:21:18 by ghahn             #+#    #+#             */
-/*   Updated: 2022/09/11 18:41:32 by ghahn            ###   ########.fr       */
+/*   Updated: 2022/09/22 20:09:25 by ghahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,15 @@ static int	print_hex_upper(unsigned long long n)
 int	print_address(va_list lst)
 {
 	unsigned long long	tmp;
+	int					n;
 
 	tmp = va_arg(lst, unsigned long long);
 	if (tmp == 0)
 		return (write(1, "0x0", 3));
-	return (write(1, "0x", 2) + print_hex_upper(tmp));
+	if (write(1, "0x", 2) == -1)
+		return (-1);
+	n = print_hex_upper(tmp);
+	if (n == -1)
+		return (-1);
+	return (n + 2);
 }

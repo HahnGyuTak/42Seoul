@@ -6,7 +6,7 @@
 /*   By: ghahn <ghahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 15:21:35 by ghahn             #+#    #+#             */
-/*   Updated: 2022/09/11 22:19:08 by ghahn            ###   ########.fr       */
+/*   Updated: 2022/09/22 20:06:37 by ghahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,11 @@ int	print_hex(va_list lst, char x)
 	k = va_arg(lst, unsigned int);
 	n = 0;
 	if (k == 0)
-		n += write(1, "0", 1);
+	{
+		if (write(1, "0", 1) == -1)
+			return (-1);
+		n++;
+	}
 	else
 	{
 		if (x == 'X')
