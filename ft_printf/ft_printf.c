@@ -39,7 +39,6 @@ int	ft_printf(const char *s, ...)
 {
 	va_list	x;
 	int		result;
-	char	*tmp;
 	int		flage;
 
 	if (s == NULL)
