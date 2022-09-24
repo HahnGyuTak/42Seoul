@@ -14,8 +14,6 @@
 
 static int	form_print(va_list lst, char x)
 {
-	char	re[2];
-
 	if (x == 'c' || x == 's')
 		return (print_string(lst, x));
 	else if (x == 'p')
@@ -26,12 +24,6 @@ static int	form_print(va_list lst, char x)
 		return (print_hex(lst, x));
 	else if (x == '%')
 		return (write(1, "%", 1));
-	else
-	{
-		re[0] = x;
-		re[1] = '\0';
-		return (write(1, re, 1));
-	}
 	return (-1);
 }
 
