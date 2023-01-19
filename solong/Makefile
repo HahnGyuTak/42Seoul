@@ -3,7 +3,6 @@ NAME = so_long
 CFLAGS = -Wall -Wextra -Werror
 MLX_FLAGS = -lmlx -framework OpenGL -framework AppKit
 
-SRCS_DIR = srcs
 SRCS =  main.c \
 		readingMap.c \
 		checkingMap.c \

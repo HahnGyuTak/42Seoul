@@ -6,7 +6,7 @@
 /*   By: ghahn <ghahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 00:06:24 by ghahn             #+#    #+#             */
-/*   Updated: 2023/01/18 08:52:09 by ghahn            ###   ########.fr       */
+/*   Updated: 2023/01/19 18:28:03 by ghahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,12 @@ int	add_map(t_MAP *m, char *line)
 	char	**temp_map;
 	char	*tmp;
 	int		i;
+	int		len;
 
 	if (!line)
 		return (0);
 	tmp = NULL;
+	len = ft_strlen(line);
 	temp_map = (char **)malloc((m->height + 1) * sizeof(char *));
 	if (m->map)
 		tmp = *(m->map);
@@ -60,10 +62,12 @@ int	add_map(t_MAP *m, char *line)
 	while (++i < m->height)
 		temp_map[i] = m->map[i];
 	temp_map[i] = line;
+	if (temp_map[i][len - 1] == '\n')
+		temp_map[i][len - 1] = '\0';
 	if (m->map)
 		free(m->map);
 	if (++(m->height) && !m->width)
-		m->width += ft_strlen(line);
+		m->width += ft_strlen(temp_map[i]);
 	m->map = temp_map;
 	return (1);
 }

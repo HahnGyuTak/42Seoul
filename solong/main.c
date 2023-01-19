@@ -6,7 +6,7 @@
 /*   By: ghahn <ghahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 17:32:40 by ghahn             #+#    #+#             */
-/*   Updated: 2023/01/18 08:51:39 by ghahn            ###   ########.fr       */
+/*   Updated: 2023/01/19 19:25:40 by ghahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,17 @@ void	set_image(t_US *snail)
 	img_w = 64;
 	img_h = 64;
 	snail->img.player = mlx_xpm_file_to_image(snail->mlx_ptr, \
-		"./img/player.xpm", &img_w, &img_h);
+		"./textures/snail_left.xpm", &img_w, &img_h);
+	snail->img.player = mlx_xpm_file_to_image(snail->mlx_ptr, \
+		"./textures/snail_right.xpm", &img_w, &img_h);
 	snail->img.wall = mlx_xpm_file_to_image(snail->mlx_ptr, \
-		"./img/wall.xpm", &img_w, &img_h);
+		"./textures/wall.xpm", &img_w, &img_h);
 	snail->img.collect = mlx_xpm_file_to_image(snail->mlx_ptr, \
-		"./img/collect.xpm", &img_w, &img_h);
+		"./textures/slime.xpm", &img_w, &img_h);
 	snail->img.space = mlx_xpm_file_to_image(snail->mlx_ptr, \
-		"./img/space.xpm", &img_w, &img_h);
+		"./textures/space.xpm", &img_w, &img_h);
 	snail->img.escape = mlx_xpm_file_to_image(snail->mlx_ptr, \
-		"./img/escape.xpm", &img_w, &img_h);
+		"./textures/exit.xpm", &img_w, &img_h);
 }
 
 void	move_player(int x, int y, t_US *snail)
@@ -68,14 +70,25 @@ void	move_player(int x, int y, t_US *snail)
 
 int	key_press(int keycode, t_US *snail)
 {
+	int		img_w;
+	int		img_h;
+
 	if (keycode == KEY_W)
 		move_player(0, -1, snail);
 	else if (keycode == KEY_S)
 		move_player(0, 1, snail);
 	else if (keycode == KEY_A)
+	{
+		snail->img.player = mlx_xpm_file_to_image(snail->mlx_ptr, \
+		"./textures/snail_left.xpm", &img_w, &img_h);
 		move_player(-1, 0, snail);
+	}
 	else if (keycode == KEY_D)
+	{
+		snail->img.player = mlx_xpm_file_to_image(snail->mlx_ptr, \
+		"./textures/snail_right.xpm", &img_w, &img_h);
 		move_player(1, 0, snail);
+	}
 	else if (keycode == KEY_ESC)
 		exit(0);
 	return (0);
@@ -88,12 +101,14 @@ int	main(int argc, char *argv[])
 	if (argc != 2)
 		return (0);
 	snail.m = read_map(argv[1]);
-	if (!is_right_map(&snail) && ft_printf("Error\nFucking Map File!!\n"))
+	if (!is_right_map(&snail) && ft_printf("Fucking Map File!!\n"))
 		return (0);
 	init_info(&snail);
 	snail.mlx_ptr = mlx_init();
 	snail.win_ptr = mlx_new_window(snail.mlx_ptr, (snail.m->width - 1) * 64, \
 									snail.m->height * 64, "Fucking Snale");
+	if (!snail.win_ptr)
+		return (0);
 	set_image(&snail);
 	print_map(&snail);
 	mlx_hook(snail.win_ptr, X_EVENT_KEY_RELEASE, 0, &key_press, &snail);
