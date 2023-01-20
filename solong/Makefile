@@ -6,6 +6,7 @@ MLX_FLAGS = -lmlx -framework OpenGL -framework AppKit
 SRCS =  main.c \
 		readingMap.c \
 		checkingMap.c \
+		etc.c \
 		get_next_line/get_next_line.c \
 		get_next_line/get_next_line_utils.c \
 		

@@ -6,7 +6,7 @@
 /*   By: ghahn <ghahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 17:32:40 by ghahn             #+#    #+#             */
-/*   Updated: 2023/01/19 19:25:40 by ghahn            ###   ########.fr       */
+/*   Updated: 2023/01/19 21:41:14 by ghahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	move_player(int x, int y, t_US *snail)
 		snail->m->map[y_loc][x_loc] = 'P';
 		mlx_destroy_window(snail->mlx_ptr, snail->win_ptr);
 		ft_printf("Clear!\n");
+		free_all(snail);
 		exit(0);
 	}
 	else if (snail->m->map[y_loc][x_loc] == 'C' || \
@@ -90,7 +91,10 @@ int	key_press(int keycode, t_US *snail)
 		move_player(1, 0, snail);
 	}
 	else if (keycode == KEY_ESC)
+	{
+		free_all(snail);
 		exit(0);
+	}
 	return (0);
 }
 
@@ -112,6 +116,7 @@ int	main(int argc, char *argv[])
 	set_image(&snail);
 	print_map(&snail);
 	mlx_hook(snail.win_ptr, X_EVENT_KEY_RELEASE, 0, &key_press, &snail);
+	mlx_hook(snail.win_ptr, X_EVENT_KEY_EXIT, 0, &window_exit, &snail);
 	mlx_loop(snail.mlx_ptr);
 	return (0);
 }

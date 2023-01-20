@@ -6,7 +6,7 @@
 /*   By: ghahn <ghahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 00:06:24 by ghahn             #+#    #+#             */
-/*   Updated: 2023/01/19 18:28:03 by ghahn            ###   ########.fr       */
+/*   Updated: 2023/01/19 21:49:35 by ghahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ t_MAP	*read_map(char *name)
 			break ;
 	}
 	my_map->n_collections = 0;
+	close(file);
 	return (my_map);
 }
 

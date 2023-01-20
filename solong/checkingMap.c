@@ -6,7 +6,7 @@
 /*   By: ghahn <ghahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 23:49:57 by ghahn             #+#    #+#             */
-/*   Updated: 2023/01/19 18:55:19 by ghahn            ###   ########.fr       */
+/*   Updated: 2023/01/20 17:39:35 by ghahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,18 +108,6 @@ int	is_right_map(t_US *s)
 	init_info(s);
 	if (!dfs(s->m, s->p.y_loc, s->p.x_loc, tmp))
 		return (ft_printf("path Error\n") && 0);
+	free_character(&tmp, s->m->height);
 	return (1);
-}
-
-void	free_all(t_US *snail)
-{
-	int		i;
-
-	snail->mlx_ptr = NULL;
-	snail->win_ptr = NULL;
-	i = -1;
-	while (i++ < snail->m->height)
-		free(snail->m->map[i]);
-	free(snail->m->map);
-	free(snail->m);
 }
