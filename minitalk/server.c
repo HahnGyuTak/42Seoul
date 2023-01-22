@@ -6,43 +6,38 @@
 /*   By: ghahn <ghahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 20:08:42 by ghahn             #+#    #+#             */
-/*   Updated: 2023/01/20 21:58:42 by ghahn            ###   ########.fr       */
+/*   Updated: 2023/01/22 22:57:43 by ghahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-int signal_num;
-
 void	transform(int signum)
 {
-	static int		i;
-	//char	c;
+	static int	i = 0;
+	static int	num = 0;
 
-	signal_num *= 2;
-	if (signum == SIGUSR2 && ft_printf(" 1"))
-		signal_num++;
-	else if (signum == SIGUSR1)
-		ft_printf(" 0");
+	num *= 2;
+	if (signum == SIGUSR2)
+		num++;
 	i++;
 	if (i == 8)
 	{	
-		if (signal_num == 127)
-			ft_printf("\n");
+		if (num == 0)
+			ft_putchar_fd('\n', 1);
 		else
-			ft_printf("[%c]", (unsigned char)signal_num);
-		signal_num = 0;
+			ft_printf("%c", num);
+		num = 0;
 		i = 0;
 	}
 }
 
-int main()
+int	main(void)
 {
 	int	pid;
 
 	pid = getpid();
-
-	ft_printf("pid : %d\n", pid);
+	ft_printf("Server PID : %d\n", pid);
 	signal(SIGUSR1, transform);
 	signal(SIGUSR2, transform);
 	while (1)

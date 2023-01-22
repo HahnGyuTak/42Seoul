@@ -1,5 +1,5 @@
 SERVER = server
-CLIENT = clinet
+CLIENT = client
 
 CFLAGS = -Wall -Wextra -Werror
 

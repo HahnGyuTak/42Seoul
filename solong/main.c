@@ -6,18 +6,11 @@
 /*   By: ghahn <ghahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 17:32:40 by ghahn             #+#    #+#             */
-/*   Updated: 2023/01/19 21:41:14 by ghahn            ###   ########.fr       */
+/*   Updated: 2023/01/22 21:20:25 by ghahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "solong.h"
-
-void	move(t_US *snail, int x_loc, int y_loc)
-{
-	snail->m->map[snail->p.y_loc][snail->p.x_loc] = '0';
-	snail->p.x_loc = x_loc;
-	snail->p.y_loc = y_loc;
-}
 
 void	set_image(t_US *snail)
 {
@@ -26,8 +19,6 @@ void	set_image(t_US *snail)
 
 	img_w = 64;
 	img_h = 64;
-	snail->img.player = mlx_xpm_file_to_image(snail->mlx_ptr, \
-		"./textures/snail_left.xpm", &img_w, &img_h);
 	snail->img.player = mlx_xpm_file_to_image(snail->mlx_ptr, \
 		"./textures/snail_right.xpm", &img_w, &img_h);
 	snail->img.wall = mlx_xpm_file_to_image(snail->mlx_ptr, \
@@ -40,6 +31,21 @@ void	set_image(t_US *snail)
 		"./textures/exit.xpm", &img_w, &img_h);
 }
 
+void	move(t_US *snail, int x_loc, int y_loc, void *img)
+{
+	mlx_put_image_to_window(snail->mlx_ptr, snail->win_ptr, \
+							img, x_loc * 64, y_loc * 64);
+	if (snail->m->map[snail->p.y_loc][snail->p.x_loc] != 'E')
+	{
+		snail->m->map[snail->p.y_loc][snail->p.x_loc] = '0';
+		mlx_put_image_to_window(snail->mlx_ptr, snail->win_ptr, \
+							snail->img.space, snail->p.x_loc * 64, \
+							snail->p.y_loc * 64);
+	}
+	snail->p.x_loc = x_loc;
+	snail->p.y_loc = y_loc;
+}
+
 void	move_player(int x, int y, t_US *snail)
 {
 	int		x_loc;
@@ -47,20 +53,21 @@ void	move_player(int x, int y, t_US *snail)
 
 	x_loc = snail->p.x_loc + x;
 	y_loc = snail->p.y_loc + y;
-	if (snail->m->map[y_loc][x_loc] == 'E' && \
-		snail->p.yummy == snail->m->n_collections)
+	if (snail->m->map[y_loc][x_loc] == 'E')
 	{
-		move(snail, x_loc, y_loc);
-		snail->m->map[y_loc][x_loc] = 'P';
-		mlx_destroy_window(snail->mlx_ptr, snail->win_ptr);
-		ft_printf("Clear!\n");
-		free_all(snail);
-		exit(0);
+		move(snail, x_loc, y_loc, snail->img.player);
+		if (snail->p.yummy == snail->m->n_collections)
+		{
+			ft_printf("Clear!\n");
+			free_all(snail);
+			exit(0);
+		}
 	}
 	else if (snail->m->map[y_loc][x_loc] == 'C' || \
 			snail->m->map[y_loc][x_loc] == '0')
 	{
-		move(snail, x_loc, y_loc);
+		move(snail, x_loc, y_loc, snail->img.space);
+		
 		if (snail->m->map[y_loc][x_loc] == 'C')
 			snail->p.yummy++;
 		snail->m->map[y_loc][x_loc] = 'P';
