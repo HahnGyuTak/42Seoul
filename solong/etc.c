@@ -6,7 +6,7 @@
 /*   By: ghahn <ghahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 21:23:57 by ghahn             #+#    #+#             */
-/*   Updated: 2023/01/20 17:38:50 by ghahn            ###   ########.fr       */
+/*   Updated: 2023/01/25 20:22:19 by ghahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	window_exit(t_US *snail)
 	return (0);
 }
 
-void 	free_character(char ***p, int height)
+void	free_character(char ***p, int height)
 {
 	char	**tmp;
 	int		i;

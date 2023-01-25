@@ -6,7 +6,7 @@
 /*   By: ghahn <ghahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 17:32:40 by ghahn             #+#    #+#             */
-/*   Updated: 2023/01/22 21:20:25 by ghahn            ###   ########.fr       */
+/*   Updated: 2023/01/25 20:22:30 by ghahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ void	move_player(int x, int y, t_US *snail)
 			snail->m->map[y_loc][x_loc] == '0')
 	{
 		move(snail, x_loc, y_loc, snail->img.space);
-		
 		if (snail->m->map[y_loc][x_loc] == 'C')
 			snail->p.yummy++;
 		snail->m->map[y_loc][x_loc] = 'P';

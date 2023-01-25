@@ -6,7 +6,7 @@
 /*   By: ghahn <ghahn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 18:46:16 by ghahn             #+#    #+#             */
-/*   Updated: 2023/01/20 17:39:18 by ghahn            ###   ########.fr       */
+/*   Updated: 2023/01/25 20:22:46 by ghahn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int		key_press(int keycode, t_US *snail);
 t_MAP	*read_map(char *name);
 void	print_map(t_US *snail);
 int		is_right_map(t_US *s);
-void 	free_character(char ***p, int height);
+void	free_character(char ***p, int height);
 void	free_all(t_US *snail);
 int		window_exit(t_US *snail);
 #endif
