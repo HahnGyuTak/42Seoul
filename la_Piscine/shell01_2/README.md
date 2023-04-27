@@ -73,7 +73,7 @@ ls -l | awk 'NR%2==1'
 - NR : 현재 레코드값 ( 레코드는 각 라인을 의미)
 - awk 시스템 변수
 
-![Screen Shot 2022-05-18 at 6.08.07 PM.png](%F0%9F%8C%8A%20La%20Piscine%20bb965bedaf894ef793294ccd7135d0d2/Screen_Shot_2022-05-18_at_6.08.07_PM.png)
+<img width="802" alt="Screen_Shot_2022-05-18_at_6 08 07_PM" src="https://user-images.githubusercontent.com/50629765/234813913-960b2316-8d19-4356-af53-994a828afba8.png">
 
 ## ex07
 
