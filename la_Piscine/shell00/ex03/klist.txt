@@ -1,0 +1,6 @@
+Credentials cache: API:241D647C-8083-4844-91E9-591C3CA3B70F
+        Principal: ghahn@42SEOUL.KR
+
+  Issued                Expires             Flags    Principal
+May 17 10:46:02 2022  May 17 20:46:02 2022  FPRIA  krbtgt/42SEOUL.KR@42SEOUL.KR
+May 17 10:46:04 2022  May 17 20:46:02 2022  FPA    HTTP/student-storage.42seoul.kr@42SEOUL.KR
